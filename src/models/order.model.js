@@ -35,8 +35,14 @@ const orderSchema=new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['PENDING', 'COMPLETED', 'FAILED'],
-        default:'PENDING'
+        enum:["PENDING_PAYMENT",
+        "PAID",
+        "PROCESSING",
+        "SHIPPED",
+        "DELIVERED",
+        "CANCELLED",
+        "REFUNDED",],
+        default:'PENDING_PAYMENT'
     },
 },{
     timestamps:true
