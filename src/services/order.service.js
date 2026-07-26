@@ -12,7 +12,11 @@ const createOrder=async(orderData)=>{
             totalAmount: order.totalAmount
         }
     )
-
+    console.log("Saved order:", order);
+console.log("Is new:", order.isNew);
+const count = await Order.countDocuments();
+console.log("Count:", count);
+console.log("Collection name:", Order.collection.name);
     return order;
 }
 

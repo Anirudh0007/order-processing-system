@@ -5,6 +5,9 @@ import paymentRoutes from './src/routes/payment.route.js'
 
 const app=express();
 
+app.use('/api/v1/payments/webhook', express.raw({
+    type:'application/json'
+}));
 app.use(express.json());
 app.use('/api/v1/orders',orderRoutes);
 app.use('/api/v1/payments', paymentRoutes);
