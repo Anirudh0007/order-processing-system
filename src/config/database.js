@@ -1,19 +1,18 @@
 import mongoose from "mongoose";
 import config from "./env.js";
 import dns from "dns";
+import logger from "./logger.js";
 
 dns.setDefaultResultOrder("ipv4first");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const connectDatabase=async()=>{
     try{
         await mongoose.connect(config.MONGO_URI);
-        console.log('MongoDB connected')
+        logger.info('MongoDB connected');
     }
     catch(error)
     {
-        console.error("❌ MongoDB Connection Failed");
-        console.error(error.message);
-
+        logger.fatal(error, "Failed to connect to MongoDb")
         process.exit(1);
     }
 }

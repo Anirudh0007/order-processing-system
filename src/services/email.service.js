@@ -11,7 +11,11 @@ const transporter=nodemailer.createTransport({
 })
 
 const sendOrderConfirmationEmail=async({
-    customerName, email, orderId, totalAmount
+    customerName,
+    email,
+    invoiceNumber,
+    totalAmount,
+    customerPdfPath
 })=>{
     await transporter.sendMail({
          from: config.EMAIL_USER,
@@ -22,7 +26,7 @@ const sendOrderConfirmationEmail=async({
 
             <p>Your order has been received successfully.</p>
 
-            <p><strong>Order ID:</strong> ${orderId}</p>
+            <p><strong>Invoice Number: </strong> ${invoiceNumber}</p>
 
             <p><strong>Total:</strong> ₹${totalAmount}</p>
 
@@ -30,6 +34,10 @@ const sendOrderConfirmationEmail=async({
 
             <p>Thank you for shopping with us.</p>
         `,
+        attachments:[{
+            filename: `${invoiceNumber}.pdf`,
+            path: customerPdfPath
+        }]
     });
 
     console.log("Email sent successfully");

@@ -3,6 +3,9 @@ import dotenv from 'dotenv';
 import connectDatabase from "./src/config/database.js";
 import redisConnection from "./src/config/redis.js";
 import config from "./src/config/env.js";
+import registerGracefulShutdown from "./src/config/gracefulShutdonw.js";
+import logger from "./src/config/logger.js";
+
 
 dotenv.config();
 
@@ -13,17 +16,17 @@ const startServer=async()=>{
 
         await connectDatabase();
         await redisConnection.ping();
-        console.log('Redis ready');
+        logger.info("Redis connection established");
 
-        app.listen(config.PORT,()=>{
-             console.log(`🚀 Server running on port ${config.PORT}`);
+        const server=app.listen(config.PORT,()=>{
+             logger.info(`🚀 Server running on port ${config.PORT}`);
         })
-
+        registerGracefulShutdown(server);
     }
     catch(error)
     {
-        console.error("❌ Failed to start application");
-        console.error(error.message);
+        logger.fatal(error,"❌ Failed to start application");
+        
 
         process.exit(1);
     }

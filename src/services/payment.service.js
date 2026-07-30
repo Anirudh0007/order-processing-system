@@ -2,12 +2,16 @@ import stripe from "../config/stripe.js";
 import Order from "../models/order.model.js"
 import Payment from '../models/payment.model.js'
 import config from "../config/env.js";
+import { reserveInventory } from "./inventory.producer.js";
+import { generateInvoice } from "./invoice.producer.js";
+import logger from "../config/logger.js";
+import NotFoundError from "../errors/NotFoundError.js";
 
 const createPaymentIntent=async(orderId)=>{
     const order=await Order.findById(orderId);
     if(!order)
     {
-        throw new Error("Order not found");
+        throw new NotFoundError("Order not found");
     }
     if(order.status!=='PENDING_PAYMENT')
     {
@@ -69,16 +73,40 @@ const handleStripeWebHook=async(signature, payload)=>{
             {
                 throw new Error("Payment not found");
             }
-            if(payment.status==='PAID') return;
+            if(payment.status==='PAID') 
+            {
+                logger.info(
+            {
+                paymentIntentId: paymentIntent.id
+            },"Duplicate webhook received, ignoring."
+        
+        );
+                return;}
 
          payment.status='PAID';
          await payment.save();
          const order=await Order.findById(payment.order);
          if(!order) {
-            throw new Error('Order not found');
+            throw new NotFoundError('Order not found');
          }
          order.status='PAID';
          await order.save();
+
+         try {
+        console.log("Reached queue publishing");
+
+console.log("Calling reserveInventory...");
+await reserveInventory(order);
+console.log("reserveInventory finished");
+
+console.log("Calling generateInvoice...");
+await generateInvoice(order);
+console.log("generateInvoice finished");
+        
+        } catch (error) {
+        logger.error(error, "Failed to publish background jobs after payment.");
+    throw error;
+}
          return;
         
         default:
