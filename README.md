@@ -499,3 +499,97 @@ database or publishing asynchronous jobs.
 Time-consuming operations such as inventory reservation, invoice generation,
 and email notifications are processed independently using BullMQ workers,
 allowing the API to remain responsive and scalable.
+
+
+## 🐳 Docker Architecture
+
+The application is containerized using Docker Compose.
+
+### Services
+
+- Backend (Express.js)
+- Worker (BullMQ)
+- Redis
+- MongoDB Atlas (Cloud)
+
+### Architecture
+
+```
+                    User
+                      │
+                      ▼
+                 Express Backend
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+      MongoDB Atlas            Redis
+                                   │
+                                   ▼
+                              BullMQ Worker
+                                   │
+                                   ▼
+                          Email Processing
+```
+
+### Start the application
+
+```bash
+docker compose up --build
+```
+
+Run in detached mode
+
+```bash
+docker compose up -d
+```
+
+Stop containers
+
+```bash
+docker compose down
+```
+
+View logs
+
+```bash
+docker compose logs
+```
+
+---
+
+## Stripe Webhooks
+
+Stripe requires a public HTTPS endpoint to deliver webhook events during local development.
+
+Start an ngrok tunnel:
+
+```bash
+ngrok http 3000
+```
+
+Update the Stripe webhook endpoint to:
+
+```
+https://<your-ngrok-url>/webhook
+```
+
+Webhook Flow
+
+```
+Stripe
+    │
+    ▼
+ngrok Tunnel
+    │
+    ▼
+Express Backend
+    │
+    ▼
+MongoDB Update
+    │
+    ▼
+BullMQ Queue
+    │
+    ▼
+Worker
+```
