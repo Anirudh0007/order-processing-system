@@ -7,6 +7,7 @@ import { serverAdapter } from './src/config/bullboard.js';
 import healthRoutes from './src/routes/health.routes.js';
 import requestLogger from './src/middleware/requestLogger.middleware.js';
 import authRoutes from './src/routes/auth.routes.js';
+import productRoutes from "./src/routes/product.route.js";
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/otp', otpRoutes);
 app.use('/admin/queues', serverAdapter.getRouter());
 app.use('/health', healthRoutes);
-
+app.use('/api/v1/products', productRoutes);
 // 5. Error Handler Middleware
 app.use(errorHandler);
 

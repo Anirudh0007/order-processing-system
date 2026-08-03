@@ -9,6 +9,8 @@ router.get("/test", (req, res) => {
     res.send("Auth Route Works");
 });
 
+
+
 router.post('/register', registerController);
 router.post('/login', loginController);
 
