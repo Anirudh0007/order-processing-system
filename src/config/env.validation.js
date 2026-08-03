@@ -19,7 +19,12 @@ const envSchema = z.object({
 
     STRIPE_WEBHOOK_SECRET: z
         .string()
-        .min(1, "STRIPE_WEBHOOK_SECRET is required")
+        .min(1, "STRIPE_WEBHOOK_SECRET is required"),
+
+    BCRYPT_SALT_ROUNDS: z.coerce.number().default(10),
+    JWT_EXPIRES_IN: z.string().default("7d"),
+    JWT_SECRET: z.string().min(1, "JWT_SECRET is required"),
 });
+
 
 export default envSchema;

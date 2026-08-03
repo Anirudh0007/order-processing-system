@@ -22,7 +22,9 @@ const config={
     STRIPE_SECRET_KEY:result.data.STRIPE_SECRET_KEY,
     STRIPE_PUBLISHABLE_KEY:result.data.STRIPE_PUBLISHABLE_KEY,
     STRIPE_WEBHOOK_SECRET:result.data.STRIPE_WEBHOOK_SECRET,
-    JWT_SECRET: result.data.JWT_SECRET
+    JWT_SECRET: result.data.JWT_SECRET,
+    BCRYPT_SALT_ROUNDS: result.data.BCRYPT_SALT_ROUNDS,
+    JWT_EXPIRES_IN: result.data.JWT_EXPIRES_IN,
 }
 
 export default config;
