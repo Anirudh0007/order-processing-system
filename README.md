@@ -46,6 +46,37 @@ The primary goal of this project is to understand not only **how APIs are built*
 
 # Features
 
+### Completed Modules
+
+- ✅ Authentication & Authorization
+- ✅ Order Management
+- ✅ Stripe Payments
+- ✅ Redis Integration
+- ✅ BullMQ Background Processing
+- ✅ Dockerized Development
+
+### In Progress
+
+- 🔄 Product Module
+
+### Planned
+
+- ⏳ Cart Module
+- ⏳ Reviews
+- ⏳ Notifications
+- ⏳ Kafka
+- ⏳ Redis Caching
+- ⏳ Kubernetes
+- ⏳ AWS Deployment
+
+## Authentication
+
+- User Registration
+- User Login
+- JWT Authentication
+- Role-Based Authorization (Customer/Admin)
+- Password Hashing (bcrypt)
+
 
 ## Product Management
 
@@ -58,14 +89,20 @@ The primary goal of this project is to understand not only **how APIs are built*
 ---
 
 ---
-
 ## Order Management
 
 - Create Orders
-- Order Status Tracking
+- Get Orders
+- Get Order By ID
+- Update Order Status
+- Cancel Orders
 - Order History
-
----
+- Pagination
+- Filtering
+- Sorting
+- Search
+- Dynamic Query Building
+- Role-Based Access Control
 
 ## Payments
 
@@ -190,6 +227,14 @@ This project demonstrates several backend engineering concepts commonly used in 
 - Environment Configuration
 - Global Error Handling
 - Scalable Service Design
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+- Pagination
+- Filtering
+- Sorting
+- Search
+- MongoDB Populate
+- Lean Queries
 
 ---
 
@@ -220,6 +265,7 @@ src/
 ├── validations/
 │
 └── app.js
+|__ errors
 
 ```
 
@@ -237,12 +283,18 @@ src/
 | workers | Background job processors |
 | utils | Helper functions |
 | validations | Request validation |
+| errors | Handles errors |
 
 ---
 
 # API Overview
 
 ```
+## Authentication
+
+POST /api/v1/auth/register
+
+POST /api/v1/auth/login
 
 ---
 
@@ -263,7 +315,15 @@ DELETE /api/v1/products/:id
 POST /api/v1/orders
 GET /api/v1/orders
 GET /api/v1/orders/:id
+GET /api/v1/orders?page=1&limit=10
 
+GET /api/v1/orders?status=PAID
+
+GET /api/v1/orders?search=ani
+
+GET /api/v1/orders?sort=createdAt&order=desc
+
+GET /api/v1/orders/:id
 ```
 
 ---
@@ -401,45 +461,57 @@ EMAIL_PASS=
 
 ---
 
-# Future Roadmap
+## Future Roadmap
 
-BELP will continue evolving with production-grade backend concepts.
+### Backend
 
-Planned improvements include:
+- Product Module
+- Cart Module
+- Reviews
+- Notifications
+- Coupons
 
-- Kafka Integration
+### Distributed Systems
+
+- Kafka
+- Event-Driven Architecture
 - Dead Letter Queue
 - Retry Mechanism
-- Bull Board Dashboard
-- Redis Caching
-- Redis Pub/Sub
-- Kubernetes Deployment
-- CI/CD Pipeline
-- GitHub Actions
-- AWS Deployment
-- Distributed Tracing
-- Metrics & Monitoring
-- API Rate Limiting
-- Refresh Tokens
-- Multi-Service Architecture
+- Saga Pattern
+- Outbox Pattern
 
----
+### Performance
+
+- Redis Caching
+- Rate Limiting
+- MongoDB Indexing
+- Query Optimization
+
+### DevOps
+
+- Kubernetes
+- GitHub Actions
+- CI/CD
+- AWS Deployment
+- Prometheus
+- Grafana
 
 # Learning Goals
 
-This project was built to gain practical experience with:
+This project is built to gain practical experience with:
 
 - Backend Engineering
-- System Design
-- Distributed Systems
-- Asynchronous Processing
-- Production Architecture
+- Production API Design
+- Authentication & Authorization
+- Queue-Based Processing
+- Payment Gateways
 - Docker
 - Redis
 - BullMQ
-- Payment Gateways
-- REST API Design
-
+- MongoDB
+- System Design
+- Distributed Systems
+- Cloud-Native Development
 ---
 
 # License
