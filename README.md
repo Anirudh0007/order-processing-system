@@ -665,3 +665,32 @@ BullMQ Queue
     ▼
 Worker
 ```
+
+Client
+   │
+   ▼
+Cart Controller
+   │
+   ▼
+Cart Service
+   │
+   ├──────────────► Order Service
+   │
+   └──────────────► Payment Service
+                         │
+                         ▼
+                     Stripe
+                         │
+                         ▼
+                    Webhook
+                         │
+                         ▼
+                  Payment Service
+                         │
+              ┌──────────┼──────────┐
+              ▼          ▼          ▼
+      Inventory     Invoice     Clear Cart
+        Producer     Producer
+                         │
+                         ▼
+                   Email Producer

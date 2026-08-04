@@ -6,6 +6,7 @@ import { reserveInventory } from "./inventory.producer.js";
 import { generateInvoice } from "./invoice.producer.js";
 import logger from "../config/logger.js";
 import NotFoundError from "../errors/NotFoundError.js";
+import Cart from '../models/cart.model.js'
 
 const createPaymentIntent=async(orderId)=>{
     const order=await Order.findById(orderId);
@@ -91,6 +92,15 @@ const handleStripeWebHook=async(signature, payload)=>{
          }
          order.status='PAID';
          await order.save();
+        
+         const cart=await Cart.findOne({
+            user: order.user
+         })
+         if(cart)
+         {
+            cart.items=[];
+            await cart.save();
+         }
 
          try {
         console.log("Reached queue publishing");
