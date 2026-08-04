@@ -104,12 +104,32 @@ The primary goal of this project is to understand not only **how APIs are built*
 - Dynamic Query Building
 - Role-Based Access Control
 
+## ✅ Cart Module
+
+- Add product to cart
+- Get user's cart
+- Update product quantity
+- Increase/Decrease quantity using MongoDB atomic operators
+- Remove product from cart
+- Clear cart
+- Checkout workflow
+- Cart validation
+- Stock validation before checkout
+- Automatic order creation from cart
+- Stripe PaymentIntent creation
+
 ## Payments
 
-- Stripe Payment Intents
-- Payment Confirmation
-- Stripe Webhooks
-- Duplicate Webhook Protection (Idempotency)
+- ## ✅ Payment Workflow
+
+- Stripe PaymentIntent integration
+- Secure Stripe webhook verification
+- Payment status updates
+- Order status updates
+- Automatic cart clearing after successful payment
+- Inventory reservation via BullMQ
+- Invoice generation via BullMQ
+- Email notification via BullMQ
 
 ---
 
@@ -337,6 +357,16 @@ POST /api/v1/payments/confirm
 POST /api/v1/payments/webhook
 
 ```
+#Cart
+POST /api/v1/cart/addToCartController
+GET /api/v1/cart/getCartController
+PATCH/api/v1/cart/updateCartQuantityController
+PATCH/api/v1/cart/increaseQuantityController
+PATCH/api/v1/cart/decreaseQuantityController
+DELETE/api/v1/cart/removeFromCartController
+DELETE/api/v1/cart/clearCartController
+POST/api/v1/cart/checkoutController
+
 
 ---
 
@@ -356,7 +386,7 @@ Relationships:
 
 User
  │
- ├──── Cart  (Yet to complete)
+ ├──── Cart
  │
  └──── Orders
           │
@@ -465,8 +495,6 @@ EMAIL_PASS=
 
 ### Backend
 
-- Product Module
-- Cart Module
 - Reviews
 - Notifications
 - Coupons
