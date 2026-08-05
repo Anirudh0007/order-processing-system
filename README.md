@@ -369,6 +369,12 @@ POST/api/v1/cart/checkoutController
 
 
 ---
+# REVIEW Module:
+POST   /reviews
+GET    /reviews/product/:productId
+PATCH  /reviews/:reviewId
+DELETE /reviews/:reviewId
+GET    /reviews/product/:productId/stats
 
 # Database Design
 

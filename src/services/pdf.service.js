@@ -38,6 +38,12 @@ const generateCustomerInvoice=(invoice)=>{
                 );
             })
             doc.moveDown();
+            doc.moveDown();
+
+            doc.fontSize(14).text(`Total Amount : ₹${invoice.totalAmount}`);
+
+            doc.moveDown();
+            doc.moveDown();
             doc.text("Thank you for shopping with Atlas Tech");
             doc.end();
 
