@@ -48,22 +48,37 @@ The primary goal of this project is to understand not only **how APIs are built*
 
 ### Completed Modules
 
-- ✅ Authentication & Authorization
-- ✅ Order Management
-- ✅ Stripe Payments
-- ✅ Redis Integration
-- ✅ BullMQ Background Processing
-- ✅ Dockerized Development
+## Completed Features
 
-### In Progress
-
-- 🔄 Product Module
+- User Authentication & Authorization (JWT + RBAC)
+- Product Management
+- Shopping Cart
+- Order Management
+- Stripe Payment Integration
+- Stripe Webhooks
+- Inventory Management
+- Invoice Generation (PDF)
+- Email Notifications
+- BullMQ Background Workers
+- Reviews & Ratings
+- Notification Center
 
 ### Planned
 
-- ⏳ Cart Module
-- ⏳ Reviews
-- ⏳ Notifications
+- ⏳ GENAI
+AI Review Summarizer
+        ↓
+Shopping Assistant
+        ↓
+Tool Calling
+        ↓
+RAG
+        ↓
+Embeddings
+        ↓
+Vector Database
+        ↓
+AI Admin
 - ⏳ Kafka
 - ⏳ Redis Caching
 - ⏳ Kubernetes
@@ -132,6 +147,28 @@ The primary goal of this project is to understand not only **how APIs are built*
 - Email notification via BullMQ
 
 ---
+
+## ⭐ Reviews Module
+
+- Create product reviews
+- Get reviews for a product
+- Update review
+- Delete review
+- One review per user per product
+- MongoDB Aggregation Framework
+  - Average Rating
+  - Total Review Count
+
+
+  ## 🔔 Notifications Module
+
+- Create notification
+- Get user notifications
+- Mark notification as read
+- Mark all notifications as read
+- Indexed for fast retrieval using compound indexes
+
+
 
 ## Background Processing
 
@@ -369,6 +406,30 @@ POST/api/v1/cart/checkoutController
 
 
 ---
+### ⭐ Reviews APIs
+
+POST   /api/v1/reviews
+
+GET    /api/v1/reviews/product/:productId
+
+PATCH  /api/v1/reviews/:reviewId
+
+DELETE /api/v1/reviews/:reviewId
+
+GET    /api/v1/reviews/product/:productId/stats
+
+
+### 🔔 Notifications APIs
+
+POST   /api/v1/notifications
+
+GET    /api/v1/notifications
+
+PATCH  /api/v1/notifications/:notificationId/read
+
+PATCH  /api/v1/notifications/read-all
+
+
 # REVIEW Module:
 POST   /reviews
 GET    /reviews/product/:productId
